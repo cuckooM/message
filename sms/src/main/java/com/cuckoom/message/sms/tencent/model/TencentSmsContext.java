@@ -1,7 +1,7 @@
 package com.cuckoom.message.sms.tencent.model;
 
-import com.cuckoom.message.sms.aliyun.proxy.AliyunSmsProxy;
 import com.cuckoom.message.sms.core.model.SmsContext;
+import com.cuckoom.message.sms.tencent.proxy.TencentSmsProxy;
 
 import jakarta.annotation.Nonnull;
 import lombok.Getter;
@@ -30,7 +30,7 @@ public class TencentSmsContext implements SmsContext {
     @Nonnull
     @Override
     public String getProxy() {
-        return AliyunSmsProxy.class.getName();
+        return TencentSmsProxy.class.getName();
     }
 
 }

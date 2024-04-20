@@ -6,7 +6,6 @@ import com.cuckoom.message.sms.core.proxy.SmsProxyFactory;
 import com.cuckoom.message.sms.properties.TecentProperties;
 import com.cuckoom.message.sms.tencent.model.TencentSms;
 import com.cuckoom.message.sms.tencent.model.TencentSmsContext;
-import com.cuckoom.message.sms.tencent.proxy.TencentSmsProxy;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
