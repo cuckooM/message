@@ -1,0 +1,14 @@
+cuckoom:
+  sms:
+    tencent:
+      secretId:
+      secretKey:
+      sdkAppId:
+      region: ap-nanjing
+      signName:
+      templateID:
+      templateParams:
+        -
+        -
+      phoneNumbers:
+        -

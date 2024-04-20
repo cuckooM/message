@@ -1,0 +1,2 @@
+com.cuckoom.message.sms.tencent.proxy.TencentSmsProxy
+com.cuckoom.message.sms.aliyun.proxy.AliyunSmsProxy
