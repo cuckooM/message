@@ -3,7 +3,7 @@ package com.cuckoom.message.sms.aliyun.proxy;
 import com.aliyun.tea.TeaException;
 import com.cuckoom.message.sms.aliyun.model.AliyunSms;
 import com.cuckoom.message.sms.aliyun.model.AliyunSmsContext;
-import com.cuckoom.message.sms.core.model.SmsReult;
+import com.cuckoom.message.sms.aliyun.model.AliyunSmsResult;
 import com.cuckoom.message.sms.core.proxy.SmsProxy;
 
 import jakarta.annotation.Nonnull;
@@ -13,7 +13,7 @@ import jakarta.annotation.Nullable;
  * 阿里云短信发送代理
  * @author cuckooM
  */
-public class AliyunSmsProxy implements SmsProxy<AliyunSms, AliyunSmsContext> {
+public class AliyunSmsProxy implements SmsProxy<AliyunSms, AliyunSmsContext, AliyunSmsResult> {
 
     /** 阿里云短信上下文 */
     private AliyunSmsContext context = null;
@@ -31,7 +31,7 @@ public class AliyunSmsProxy implements SmsProxy<AliyunSms, AliyunSmsContext> {
 
     @Nonnull
     @Override
-    public SmsReult send(@Nonnull AliyunSmsContext context, @Nonnull AliyunSms sms) {
+    public AliyunSmsResult send(@Nonnull AliyunSmsContext context, @Nonnull AliyunSms sms) {
         try {
             com.aliyun.dysmsapi20170525.Client client = AliyunSmsProxy.createClient(context);
             com.aliyun.dysmsapi20170525.models.SendSmsRequest sendSmsRequest = new com.aliyun.dysmsapi20170525.models.SendSmsRequest()

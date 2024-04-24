@@ -1,9 +1,9 @@
 package com.cuckoom.message.sms.tencent.proxy;
 
-import com.cuckoom.message.sms.core.model.SmsReult;
 import com.cuckoom.message.sms.core.proxy.SmsProxy;
 import com.cuckoom.message.sms.tencent.model.TencentSms;
 import com.cuckoom.message.sms.tencent.model.TencentSmsContext;
+import com.cuckoom.message.sms.tencent.model.TencentSmsResult;
 import com.tencentcloudapi.common.Credential;
 import com.tencentcloudapi.common.exception.TencentCloudSDKException;
 import com.tencentcloudapi.sms.v20210111.SmsClient;
@@ -16,7 +16,7 @@ import jakarta.annotation.Nullable;
  * 腾讯云短信发送代理
  * @author cuckooM
  */
-public class TencentSmsProxy implements SmsProxy<TencentSms, TencentSmsContext> {
+public class TencentSmsProxy implements SmsProxy<TencentSms, TencentSmsContext, TencentSmsResult> {
 
     /** 腾讯云短信上下文 */
     private TencentSmsContext context = null;
@@ -34,7 +34,7 @@ public class TencentSmsProxy implements SmsProxy<TencentSms, TencentSmsContext> 
 
     @Nonnull
     @Override
-    public SmsReult send(@Nonnull TencentSmsContext context, @Nonnull TencentSms sms) {
+    public TencentSmsResult send(@Nonnull TencentSmsContext context, @Nonnull TencentSms sms) {
         try {
             Credential cred = new Credential(context.getSecretId(), context.getSecretKey());
             SmsClient client = new SmsClient(cred, context.getRegion());
@@ -46,9 +46,10 @@ public class TencentSmsProxy implements SmsProxy<TencentSms, TencentSmsContext> 
             req.setTemplateParamSet(sms.getTemplateParams());
             req.setPhoneNumberSet(sms.getPhoneNumbers());
 
-            SendSmsResponse res = client.SendSms(req);
-            System.out.println(SendSmsResponse.toJsonString(res));
-            System.out.println(res.getRequestId());
+            SendSmsResponse response = client.SendSms(req);
+            System.out.println(SendSmsResponse.toJsonString(response));
+            System.out.println(response.getRequestId());
+            return new TencentSmsResult(response);
 
         } catch (TencentCloudSDKException e) {
             e.printStackTrace();

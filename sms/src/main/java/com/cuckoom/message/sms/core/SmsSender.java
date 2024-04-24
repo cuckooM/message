@@ -6,7 +6,7 @@ import com.cuckoom.message.sms.core.proxy.SmsProxyFactory;
 import com.cuckoom.message.sms.core.exception.ErrorCodeEnum;
 import com.cuckoom.message.sms.core.exception.SmsException;
 import com.cuckoom.message.sms.core.model.Sms;
-import com.cuckoom.message.sms.core.model.SmsReult;
+import com.cuckoom.message.sms.core.model.SmsResult;
 import jakarta.annotation.Nonnull;
 
 /**
@@ -25,11 +25,13 @@ public class SmsSender {
      * @return 结果
      * @param <T> 短信实体类型
      * @param <D> 短信上下文类型
+     * @param <R> 短信发送结果
      * @throws SmsException 异常
      */
     @Nonnull
-    public static <T extends Sms, D extends SmsContext> SmsReult send(@Nonnull T sms) throws SmsException {
-        SmsProxy<T, D> smsProxy = SmsProxyFactory.getSmsProxy(sms.getProxy());
+    public static <T extends Sms, D extends SmsContext, R extends SmsResult> SmsResult send(@Nonnull T sms)
+            throws SmsException {
+        SmsProxy<T, D, R> smsProxy = SmsProxyFactory.getSmsProxy(sms.getProxy());
         if (null == smsProxy) {
             throw new SmsException(ErrorCodeEnum.PLAT_NOT_EXISTS);
         }
@@ -43,12 +45,13 @@ public class SmsSender {
      * @return 结果
      * @param <T> 短信实体类型
      * @param <D> 短信上下文类型
+     * @param <R> 短信发送结果
      * @throws SmsException 异常
      */
     @Nonnull
-    public static <T extends Sms, D extends SmsContext> SmsReult send(@Nonnull D context, @Nonnull T sms)
-            throws SmsException {
-        SmsProxy<T, D> smsProxy = SmsProxyFactory.getSmsProxy(sms.getProxy());
+    public static <T extends Sms, D extends SmsContext,  R extends SmsResult> SmsResult send(
+            @Nonnull D context, @Nonnull T sms) throws SmsException {
+        SmsProxy<T, D, R> smsProxy = SmsProxyFactory.getSmsProxy(sms.getProxy());
         if (null == smsProxy) {
             throw new SmsException(ErrorCodeEnum.PLAT_NOT_EXISTS);
         }
