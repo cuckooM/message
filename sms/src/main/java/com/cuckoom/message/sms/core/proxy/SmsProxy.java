@@ -4,7 +4,7 @@ import com.cuckoom.message.sms.core.exception.ErrorCodeEnum;
 import com.cuckoom.message.sms.core.exception.SmsException;
 import com.cuckoom.message.sms.core.model.Sms;
 import com.cuckoom.message.sms.core.model.SmsContext;
-import com.cuckoom.message.sms.core.model.SmsReult;
+import com.cuckoom.message.sms.core.model.SmsResult;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
@@ -12,9 +12,10 @@ import jakarta.annotation.Nullable;
  * 短信发送代理
  * @param <T> 短信实体类型
  * @param <D> 短信上下文类型
+ * @param <R> 短信发送结果
  * @author cuckooM
  */
-public interface SmsProxy<T extends Sms, D extends SmsContext> {
+public interface SmsProxy<T extends Sms, D extends SmsContext, R extends SmsResult> {
 
     /**
      * 获取短信上下文
@@ -36,14 +37,14 @@ public interface SmsProxy<T extends Sms, D extends SmsContext> {
      * @return 结果
      */
     @Nonnull
-    SmsReult send(@Nonnull D context, @Nonnull T sms);
+    R send(@Nonnull D context, @Nonnull T sms);
 
     /**
      * 发送短信
      * @param sms 短信对象
      * @return 结果
      */
-    default SmsReult send(@Nonnull T sms) {
+    default R send(@Nonnull T sms) {
         D context = getContext();
         if (null == context) {
             throw new SmsException(ErrorCodeEnum.PLAT_SETTING_ERROR);
